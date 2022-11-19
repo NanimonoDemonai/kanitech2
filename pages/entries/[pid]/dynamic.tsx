@@ -1,13 +1,9 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { MDXProvider } from "@mdx-js/react";
-import { useMemo } from "react";
-import { getMDXComponent } from "mdx-bundler/client";
+import dynamic from "next/dynamic";
 import { unknownParamsToPIDParams } from "../../../src/utils/validators/unknownParamsToPIDParams";
-import { compileMdx } from "../../../src/service/mdx/compileMdx";
 import { frontMatterParser } from "../../../src/utils/parsers/FrontMatterParser";
 
 interface Props {
-  code: string;
   title: string;
   pid: string;
 }
@@ -17,10 +13,9 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   if (!pid) return { notFound: true };
   const { default: src } = await import(`../../../entries/${pid}.mdx?raw`);
   const { frontMatter, content } = frontMatterParser(src);
-  const { code } = await compileMdx(content);
+
   return {
     props: {
-      code,
       title: frontMatter.title,
       pid,
     },
@@ -35,14 +30,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const Index: NextPage<Props> = ({ code }) => {
-  const Component = useMemo(() => getMDXComponent(code), [code]);
-
-  return (
-    <MDXProvider>
-      <Component />
-    </MDXProvider>
-  );
+const Index: NextPage<Props> = ({  pid }) => {
+  const MDX = dynamic(() => import(`../../../entries/${pid}.mdx`));
+  return <MDX />;
 };
 
 export default Index;
