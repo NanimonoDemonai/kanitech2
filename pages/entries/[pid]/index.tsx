@@ -2,9 +2,9 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { MDXProvider } from "@mdx-js/react";
 import { useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
-import { unknownParamsToPIDParams } from "../../../src/utils/validators/unknownParamsToPIDParams";
-import { compileMdx } from "../../../src/service/mdx/compileMdx";
-import { frontMatterParser } from "../../../src/utils/parsers/FrontMatterParser";
+import { unknownParamsToPIDParams } from "src/utils/validators/unknownParamsToPIDParams";
+import { frontMatterParser } from "src/utils/parsers/FrontMatterParser";
+import { compileMdx } from "src/service/mdx/compileMdx";
 
 interface Props {
   code: string;
@@ -15,7 +15,7 @@ interface Props {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const pid = unknownParamsToPIDParams(params);
   if (!pid) return { notFound: true };
-  const { default: src } = await import(`../../../entries/${pid}.mdx?raw`);
+  const { default: src } = await import(`entries/${pid}.mdx?raw`);
   const { frontMatter, content } = frontMatterParser(src);
   const { code } = await compileMdx(content);
   return {

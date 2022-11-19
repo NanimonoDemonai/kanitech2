@@ -1,6 +1,6 @@
 import parser, { stringify } from "gray-matter";
-import { FrontMatter } from "../../types/FrontMatter";
-import { unknownObjectToFrontMatter } from "../validators/unknownObjectToFrontMatter";
+import { FrontMatter } from "src/types/FrontMatter";
+import { unknownObjectToFrontMatter } from "src/utils/validators/unknownObjectToFrontMatter";
 
 interface Res {
   frontMatter: FrontMatter;

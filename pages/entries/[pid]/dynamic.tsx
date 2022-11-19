@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
-import { unknownParamsToPIDParams } from "../../../src/utils/validators/unknownParamsToPIDParams";
-import { frontMatterParser } from "../../../src/utils/parsers/FrontMatterParser";
+import {unknownParamsToPIDParams} from "src/utils/validators/unknownParamsToPIDParams";
+import {frontMatterParser} from "src/utils/parsers/FrontMatterParser";
 
 interface Props {
   title: string;
@@ -11,7 +11,7 @@ interface Props {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const pid = unknownParamsToPIDParams(params);
   if (!pid) return { notFound: true };
-  const { default: src } = await import(`../../../entries/${pid}.mdx?raw`);
+  const { default: src } = await import(`entries/${pid}.mdx?raw`);
   const { frontMatter, content } = frontMatterParser(src);
 
   return {
@@ -30,8 +30,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const Index: NextPage<Props> = ({  pid }) => {
-  const MDX = dynamic(() => import(`../../../entries/${pid}.mdx`));
+const Index: NextPage<Props> = ({ pid }) => {
+  const MDX = dynamic(() => import(`entries/${pid}.mdx`));
   return <MDX />;
 };
 
