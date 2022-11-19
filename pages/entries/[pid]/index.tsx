@@ -1,9 +1,9 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { MDXProvider } from "@mdx-js/react";
-import { unknownParamsToPIDParams } from "../../../src/utils/validators/unknownParamsToPIDParams";
-import { compileMdx } from "../../../src/service/mdx/compileMdx";
 import { useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
+import { unknownParamsToPIDParams } from "../../../src/utils/validators/unknownParamsToPIDParams";
+import { compileMdx } from "../../../src/service/mdx/compileMdx";
 import { frontMatterParser } from "../../../src/utils/parsers/FrontMatterParser";
 
 interface Props {

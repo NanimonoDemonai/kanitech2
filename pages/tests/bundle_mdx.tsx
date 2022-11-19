@@ -1,7 +1,7 @@
 import { GetStaticProps, NextPage } from "next";
-import { compileMdx } from "../../src/service/mdx/compileMdx";
 import { useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
+import { compileMdx } from "../../src/service/mdx/compileMdx";
 
 interface Props {
   code: string;

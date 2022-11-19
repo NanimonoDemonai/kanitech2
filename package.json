@@ -21,9 +21,16 @@
     "@mdx-js/loader": "^2.1.5",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.7.1",
     "remark-frontmatter": "^4.0.1",
-    "typescript": "^4.8.4",
+    "typescript": "^4.9.3",
     "zod": "3.18.0"
   }
 }
