@@ -23,6 +23,11 @@ const nextConfig = {
         },
       ],
     });
+    config.module.rules = config.module.rules.map((e) => ({ ...e, resourceQuery: { not: [/raw/] } }));
+    config.module.rules.push({
+      resourceQuery: /raw/,
+      type: "asset/source",
+    });
     return config;
   },
 };
