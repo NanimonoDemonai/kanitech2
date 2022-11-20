@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compileMdx バンドルされる 1`] = `
+<div>
+  <h1>
+    イカ
+  </h1>
+  
+
+  <p>
+    イカです 🦑
+  </p>
+  
+
+  <hr />
+  
+
+  <h2>
+    title: "loremipsum"
+tags: [ページ]
+  </h2>
+  
+
+  <h1>
+    修正 Innumerasque sacra crede cum interdum Stygia incedit
+  </h1>
+  
+
+  <h2>
+    Sanguine ambae
+  </h2>
+  
+
+  <p>
+    Lorem markdownum ipsa ingemit messes te moenia meas neque, se nec. Obvertere
+iuvenes faciemque. 
+    <a
+      href="http://hoc.io/geminos.html"
+    >
+      Somnus
+    </a>
+     raptaque novercae vobis
+mollirique potuit retroque tacitorum pondus precibusque res hoc. Adfixa velat
+sumpsit traherent removerat quater ara populos. Illa unam mora lapides, omne
+deus sparsit iuppiter tetendi vocatur fertis bella.
+  </p>
+  
+
+  <p>
+    Per quae patriorum talibus omnes. Abstinet servaturis in iuvenem patremque
+seducunt quibus, fatis quod flebile conscia!
+  </p>
+  
+
+  <h2>
+    Fundae cultique conducat propulit
+  </h2>
+  
+
+  <p>
+    Vidisse in nomenque armis. Pelago nocet annorum sub cernit dinumerat 
+    <a
+      href="http://ora-vincta.net/"
+    >
+      pervenit
+est
+    </a>
+     antri imi magna, stabula et, semine: in: precor.
+Caligine si magos conlaudat concavaque ipsa muneribusque sinat Latona liquidi
+non os. Fuit usque; et vidit et non, palluit lacte nam quid erravisse ponendi
+retia aera, 
+    <strong>
+      bimari Iovis
+    </strong>
+    ? Gaudia superis gerit redimitus illis dissimulant
+et naribus committitur per iam 
+    <a
+      href="http://plura.org/aperto.php"
+    >
+      quoque auctor
+hinc
+    </a>
+    .
+  </p>
+  
+
+  <blockquote>
+    
+
+    <p>
+      Ire amor haec, oris indurata Achillea usquam surgit, feram, plenissima domus
+rosarum derectos et. Mixta tum ignaroque secreta difficilis cornua hostem. In
+dis tunc est saecula, pollentibus tura caesariem fontesque.
+    </p>
+    
+
+  </blockquote>
+  
+
+  <pre>
+    <code
+      class="language-javascript"
+    >
+      alert("hello");
+
+    </code>
+  </pre>
+  
+
+  <h2>
+    Omnia ingeniis utque
+  </h2>
+  
+
+  <p>
+    O fratres rubore paelice Boebes suo, non abiit regnis, ille coniectos conatibus.
+Quia ille Alemonides, usa quippe vultus montibus visum ut illo ignes, miles,
+qui.
+  </p>
+  
+
+  <h2>
+    Praeferri et oscula medio tempus ferrugine litora
+  </h2>
+  
+
+  <p>
+    Facto tua terunt monimenta aut, nec honor pro qua Gyaroque, perque ubi satiaque.
+Fulserunt sibila sinu concedimus, probavit sitim. Aut aspice paludes, maturus
+centum damno. Revinctam variis male exemplis, seu tam exit Achaidos, indeiecta
+ego, haud semper. Me raptam fronte cum hactenus aram latentis capiat pendet
+sibi.
+  </p>
+  
+
+  <p>
+    Ora ingens, dedisse nullaque movi opem furibunda tecum, ingenti? Rutuli Iuno
+illa, Glaucus. Sinebat ala atque dis magna, ac in praecordia ignesque signa in
+haec. Haut pro, cum ludit corpus; cum attollit
+
+    <a
+      href="http://cancer.org/melumina.aspx"
+    >
+      navigat
+    </a>
+     occiduae ferinae certo 
+    <em>
+      superi
+    </em>
+    , aut
+ter!
+  </p>
+</div>
+`;
