@@ -13,5 +13,6 @@ services:
       TZ: Asia/Tokyo
     volumes:
       - data-volume:/var/lib/mysql
+      - ./test_db:/docker-entrypoint-initdb.d
 volumes:
   data-volume:

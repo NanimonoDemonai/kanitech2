@@ -11,17 +11,17 @@ datasource db {
 }
 
 model Entry {
-  id        Int              @id @default(autoincrement())
-  pageName  String           @unique
-  pageTitle String           @default("")
+  id        Int       @id @default(autoincrement())
+  pid       String    @unique
+  pageTitle String    @default("")
   source    String
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   tags      Tag[]
   revision  Int
   history   History[]
 
-  @@index([pageName], name: "pageName")
+  @@index([pid], name: "pid")
 }
 
 model History {

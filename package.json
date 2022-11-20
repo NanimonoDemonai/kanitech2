@@ -4,7 +4,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "dotenv -e .env.test --  jest",
+    "prisma:generate": "prisma generate",
+    "prisma:format": "prisma format",
+    "prisma:setuptest": "dotenv -e .env.test -- prisma migrate deploy "
   },
   "dependencies": {
     "@mdx-js/react": "^2.1.5",
@@ -30,6 +33,8 @@
     "@types/react": "18.0.25",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
+    "dotenv": "^16.0.3",
+    "dotenv-cli": "^6.0.0",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.4",
     "eslint-config-prettier": "^8.5.0",
