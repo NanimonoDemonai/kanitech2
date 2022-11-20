@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Entry {
+  id        Int              @id @default(autoincrement())
+  pageName  String           @unique
+  pageTitle String           @default("")
+  source    String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  tags      Tag[]
+  revision  Int
+  history   History[]
+
+  @@index([pageName], name: "pageName")
+}
+
+model History {
+  id        Int      @id @default(autoincrement())
+  entry     Entry    @relation(fields: [entryId], references: [id])
+  entryId   Int
+  source    String
+  revision  Int
+  createdAt DateTime @default(now())
+
+  @@unique([entryId, revision])
+}
+
+model Tag {
+  id      Int     @id @default(autoincrement())
+  tagName String  @unique
+  entries Entry[]
+
+  @@index([tagName], name: "tagName")
+}

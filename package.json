@@ -8,6 +8,7 @@
   "dependencies": {
     "@mdx-js/react": "^2.1.5",
     "@next/mdx": "^13.0.3",
+    "@prisma/client": "4.6.1",
     "esbuild": "^0.15.13",
     "gray-matter": "^4.0.3",
     "mdx-bundler": "^9.0.1",
