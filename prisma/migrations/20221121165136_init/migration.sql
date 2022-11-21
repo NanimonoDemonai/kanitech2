@@ -4,10 +4,10 @@ CREATE TABLE `Entry`
     `id`        INTEGER      NOT NULL AUTO_INCREMENT,
     `pid`       VARCHAR(191) NOT NULL,
     `pageTitle` VARCHAR(191) NOT NULL DEFAULT '',
-    `source`    VARCHAR(191) NOT NULL,
+    `source`    TEXT         NOT NULL,
     `createdAt` DATETIME(3)  NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3)  NOT NULL,
-    `revision`  INTEGER      NOT NULL,
+    `revision`  VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Entry_pid_key` (`pid`),
     INDEX `pid` (`pid`),
@@ -20,11 +20,11 @@ CREATE TABLE `History`
 (
     `id`        INTEGER      NOT NULL AUTO_INCREMENT,
     `entryId`   INTEGER      NOT NULL,
-    `source`    VARCHAR(191) NOT NULL,
-    `revision`  INTEGER      NOT NULL,
+    `source`    TEXT         NOT NULL,
+    `revision`  VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3)  NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
-    UNIQUE INDEX `History_entryId_revision_key` (`entryId`, `revision`),
+    UNIQUE INDEX `History_revision_key` (`revision`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;

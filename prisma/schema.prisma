@@ -26,13 +26,11 @@ model Entry {
 
 model History {
   id        Int      @id @default(autoincrement())
-  entry     Entry    @relation(fields: [entryId], references: [id])
+  entry     Entry    @relation(fields: [entryId], references: [id], onDelete: Cascade)
   entryId   Int
-  source    String
-  revision  String
+  source    String   @db.Text
+  revision  String   @unique
   createdAt DateTime @default(now())
-
-  @@unique([entryId, revision])
 }
 
 model Tag {
