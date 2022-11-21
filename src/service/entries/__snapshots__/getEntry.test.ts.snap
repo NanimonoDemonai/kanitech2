@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getEntry should getEtnry 1`] = `
+{
+  "createdAt": 2022-11-20T15:50:22.140Z,
+  "id": 1,
+  "pageTitle": "",
+  "pid": "aaa",
+  "revision": 1,
+  "source": "",
+  "updatedAt": 2022-11-20T15:50:22.140Z,
+}
+`;

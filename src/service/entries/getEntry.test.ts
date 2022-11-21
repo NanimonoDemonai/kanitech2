@@ -9,16 +9,16 @@ describe("getEntry", function () {
       data: {
         pid: "aaa",
         source: "test",
-        revision: 1,
+        revision: "1",
       },
     });
   });
-  it("should getEtnry", async function () {
+  it("should getEntry", async function () {
     const entry = await getEntry("aaa");
     expect(entry).toMatchObject({
       pid: "aaa",
       source: "test",
-      revision: 1,
+      revision: "1",
     });
   });
 });
