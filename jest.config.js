@@ -14,6 +14,7 @@ const customJestConfig = {
   // if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
   moduleDirectories: ["node_modules", "<rootDir>/"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  setupFilesAfterEnv: ["<rootDir>/jest.setupTestsAfterEnv.ts"],
   testEnvironment: "jest-environment-jsdom",
   moduleNameMapper: {
     uuid: require.resolve("uuid"),
