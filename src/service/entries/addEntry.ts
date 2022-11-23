@@ -14,7 +14,7 @@ interface Props {
 const HistoryValidator =
   Prisma.validator<Prisma.HistoryCreateWithoutEntryInput>();
 const TagsValidator =
-  Prisma.validator<Prisma.TagCreateOrConnectWithoutEntriesInput>();
+  Prisma.validator<Prisma.TagsOnEntriesCreateWithoutEntryInput>();
 const EntryInputValidator = Prisma.validator<Prisma.EntryCreateInput>();
 const EntryUpdateValidator = Prisma.validator<Prisma.EntryUpdateInput>();
 
@@ -31,23 +31,25 @@ export const addEntry = async (props: Props) => {
     revision: entryData.revision,
     createdAt: entryData.createdAt,
   });
-  const tags =
-    props.tags &&
-    props.tags.map((tagName) =>
-      TagsValidator({
-        where: { tagName },
-        create: { tagName },
-      })
-    );
+  const tags = props.tags
+    ? props.tags.map((name) =>
+        TagsValidator({
+          tag: {
+            connectOrCreate: {
+              where: { name },
+              create: { name },
+            },
+          },
+        })
+      )
+    : undefined;
 
   const createEntry = EntryInputValidator({
     ...entryData,
     history: {
       create: history,
     },
-    tags: {
-      connectOrCreate: tags,
-    },
+    tags: { create: tags },
   });
   const updateEntryHistory = EntryUpdateValidator({
     history: {
@@ -61,9 +63,6 @@ export const addEntry = async (props: Props) => {
     pageTitle: entryData.pageTitle,
     source: entryData.source,
     createdAt: entryData.createdAt,
-    tags: tags && {
-      connectOrCreate: tags,
-    },
   });
 
   await prisma.$transaction([

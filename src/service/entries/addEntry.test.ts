@@ -35,7 +35,7 @@ describe("addEntry", () => {
     expect(await getEntry(daysAndData[2].pid)).toMatchObject(daysAndData[1]);
   });
 
-  it("履歴は3つある", async () => {
+  it("3回addすれば履歴は3つある", async () => {
     const pid = faker.lorem.slug();
     const days = [dayjs(), dayjs().add(1, "day"), dayjs().subtract(4, "day")];
     const daysAndData = days.map((e) => ({
@@ -61,5 +61,20 @@ describe("addEntry", () => {
         )
       ).toBeTruthy();
     }
+  });
+  it("タグを作ればタグが追加される", async () => {
+    const pid = faker.lorem.slug();
+    const tags = [1, 2, 3].map((e) => faker.lorem.word());
+    await addEntry({
+      pid: pid,
+      source: faker.lorem.words(),
+      tags: tags,
+    });
+    const entry = await getEntry(pid);
+    if (!entry) {
+      throw new Error("entry must exist");
+    }
+    entry.tags[0].tag.name;
+    expect(entry.tags).toBe(tags);
   });
 });
