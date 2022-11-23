@@ -74,6 +74,6 @@ describe("addEntry", () => {
     await addEntry(data);
 
     const entry = await getEntry(pid);
-    expect(entry?.tags).toBe(tags);
+    expect(entry?.tags.map((e) => e.tagName)).toIncludeAllMembers(tags);
   });
 });
