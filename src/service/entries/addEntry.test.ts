@@ -62,4 +62,18 @@ describe("addEntry", () => {
       ).toBeTruthy();
     }
   });
+  it("タグがつけられる", async () => {
+    const pid = faker.lorem.slug();
+
+    const tags = [faker.lorem.word(), faker.lorem.word(), faker.lorem.word()];
+    const data = {
+      pid,
+      source: faker.lorem.words(),
+      tags,
+    };
+    await addEntry(data);
+
+    const entry = await getEntry(pid);
+    expect(entry?.tags).toBe(tags);
+  });
 });

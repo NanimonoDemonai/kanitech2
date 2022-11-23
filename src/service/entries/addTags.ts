@@ -16,7 +16,7 @@ export const addTags = async ({ pid, tags }: Props) => {
       })),
     },
   });
-  prisma.entry.update({
+  await prisma.entry.update({
     where: { pid },
     data: updateEntry,
   });

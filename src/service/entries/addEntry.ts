@@ -14,8 +14,6 @@ interface Props {
 
 const HistoryValidator =
   Prisma.validator<Prisma.HistoryCreateWithoutEntryInput>();
-const TagsValidator =
-  Prisma.validator<Prisma.TagCreateOrConnectWithoutEntriesInput>();
 const EntryInputValidator = Prisma.validator<Prisma.EntryCreateInput>();
 const EntryUpdateValidator = Prisma.validator<Prisma.EntryUpdateInput>();
 
