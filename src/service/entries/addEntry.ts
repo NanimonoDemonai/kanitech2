@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { Prisma } from "@prisma/client";
 import { prisma } from "src/service/prisma/client";
 
 interface Props {
@@ -7,7 +8,15 @@ interface Props {
   source: string;
   revision?: string;
   createdAt?: Date;
+  tags?: string[];
 }
+
+const HistoryValidator =
+  Prisma.validator<Prisma.HistoryCreateWithoutEntryInput>();
+const TagsValidator =
+  Prisma.validator<Prisma.TagCreateOrConnectWithoutEntriesInput>();
+const EntryInputValidator = Prisma.validator<Prisma.EntryCreateInput>();
+const EntryUpdateValidator = Prisma.validator<Prisma.EntryUpdateInput>();
 
 export const addEntry = async (props: Props) => {
   const now = new Date();
@@ -16,35 +25,56 @@ export const addEntry = async (props: Props) => {
     createdAt: props.createdAt ?? now,
     revision: props.revision ?? randomUUID(),
   };
-  const history = {
+
+  const history = HistoryValidator({
     source: entryData.source,
     revision: entryData.revision,
-    createdAt: props.createdAt ?? now,
-  };
+    createdAt: entryData.createdAt,
+  });
+  const tags =
+    props.tags &&
+    props.tags.map((tagName) =>
+      TagsValidator({
+        where: { tagName },
+        create: { tagName },
+      })
+    );
+
+  const createEntry = EntryInputValidator({
+    ...entryData,
+    history: {
+      create: history,
+    },
+    tags: {
+      connectOrCreate: tags,
+    },
+  });
+  const updateEntryHistory = EntryUpdateValidator({
+    history: {
+      connectOrCreate: {
+        where: { revision: entryData.revision },
+        create: history,
+      },
+    },
+  });
+  const updateEntry = EntryUpdateValidator({
+    pageTitle: entryData.pageTitle,
+    source: entryData.source,
+    createdAt: entryData.createdAt,
+    tags: tags && {
+      connectOrCreate: tags,
+    },
+  });
+
   await prisma.$transaction([
     prisma.entry.upsert({
       where: {
         pid: entryData.pid,
       },
-      create: {
-        ...entryData,
-        history: {
-          create: {
-            ...history,
-          },
-        },
-      },
-      update: {
-        history: {
-          connectOrCreate: {
-            where: { revision: entryData.revision },
-            create: {
-              ...history,
-            },
-          },
-        },
-      },
+      create: createEntry,
+      update: updateEntryHistory,
     }),
+    // updateManyとしているが一つしか更新しない
     prisma.entry.updateMany({
       where: {
         pid: entryData.pid,
@@ -52,7 +82,7 @@ export const addEntry = async (props: Props) => {
           lt: now,
         },
       },
-      data: { ...entryData },
+      data: updateEntry,
     }),
   ]);
 };
