@@ -1,5 +1,6 @@
 import { randomUUID } from "crypto";
 import { Prisma } from "@prisma/client";
+import { addTags } from "src/service/entries/addTags";
 import { prisma } from "src/service/prisma/client";
 
 interface Props {
@@ -31,23 +32,13 @@ export const addEntry = async (props: Props) => {
     revision: entryData.revision,
     createdAt: entryData.createdAt,
   });
-  const tags =
-    props.tags &&
-    props.tags.map((tagName) =>
-      TagsValidator({
-        where: { tagName },
-        create: { tagName },
-      })
-    );
 
   const createEntry = EntryInputValidator({
     ...entryData,
     history: {
       create: history,
     },
-    tags: {
-      connectOrCreate: tags,
-    },
+    tags: undefined,
   });
   const updateEntryHistory = EntryUpdateValidator({
     history: {
@@ -61,9 +52,7 @@ export const addEntry = async (props: Props) => {
     pageTitle: entryData.pageTitle,
     source: entryData.source,
     createdAt: entryData.createdAt,
-    tags: tags && {
-      connectOrCreate: tags,
-    },
+    tags: undefined,
   });
 
   await prisma.$transaction([
@@ -85,4 +74,8 @@ export const addEntry = async (props: Props) => {
       data: updateEntry,
     }),
   ]);
+  const tags = props.tags;
+  if (tags) {
+    await addTags({ pid: props.pid, tags });
+  }
 };

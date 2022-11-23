@@ -54,7 +54,7 @@ CREATE TABLE `_EntryToTag`
 
 -- AddForeignKey
 ALTER TABLE `History`
-    ADD CONSTRAINT `History_entryId_fkey` FOREIGN KEY (`entryId`) REFERENCES `Entry` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+    ADD CONSTRAINT `History_entryId_fkey` FOREIGN KEY (`entryId`) REFERENCES `Entry` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_EntryToTag`
