@@ -11,26 +11,36 @@ datasource db {
 }
 
 model Entry {
-  id        Int       @id @default(autoincrement())
-  pid       String    @unique
-  pageTitle String    @default("")
-  source    String    @db.Text
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  tags      Tag[]
-  revision  String
-  history   History[]
+  id            Int                   @id @default(autoincrement())
+  pid           String                @unique
+  pageTitle     String                @default("")
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+  tags          Tag[]
+  history       History[]
+  latestHistory LatestHistoryOnEntry?
 
   @@index([pid], name: "pid")
 }
 
+model LatestHistoryOnEntry {
+  id        Int     @id @default(autoincrement())
+  entry     Entry   @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  entryId   Int     @unique
+  history   History @relation(fields: [historyId], references: [id], onDelete: Cascade)
+  historyId Int     @unique
+
+  @@unique([entryId, historyId])
+}
+
 model History {
-  id        Int      @id @default(autoincrement())
-  entry     Entry    @relation(fields: [entryId], references: [id], onDelete: Cascade)
-  entryId   Int
-  source    String   @db.Text
-  revision  String   @unique
-  createdAt DateTime @default(now())
+  id                   Int                    @id @default(autoincrement())
+  entry                Entry                  @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  entryId              Int
+  source               String                 @db.Text
+  revision             String                 @unique
+  createdAt            DateTime               @default(now())
+  LatestHistoryOnEntry LatestHistoryOnEntry[]
 }
 
 model Tag {

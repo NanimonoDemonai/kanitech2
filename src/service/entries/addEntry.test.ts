@@ -5,15 +5,18 @@ import { getEntry, getEntryWithHistory } from "src/service/entries/getEntry";
 
 describe("addEntry", () => {
   it("デフォルト値で作成できる", async () => {
-    const data = { pid: faker.lorem.slug(), source: faker.lorem.lines() };
+    const pid = faker.lorem.slug();
+    const source = faker.lorem.words();
+
+    const data = { pid, source };
     await addEntry(data);
     const entry = await getEntry(data.pid);
 
     expect(entry).toMatchObject({
-      ...data,
+      pid,
       pageTitle: "",
-      revision: expect.any(String),
     });
+    expect(entry?.latestHistory?.history.source).toBe(source);
   });
 
   it("複数作っても新しいのだけ", async () => {
@@ -26,13 +29,31 @@ describe("addEntry", () => {
     }));
 
     await addEntry(daysAndData[0]);
-    expect(await getEntry(daysAndData[0].pid)).toMatchObject(daysAndData[0]);
+    expect(await getEntry(pid)).toMatchObject({
+      pid,
+    });
+    expect((await getEntry(pid))?.latestHistory?.history).toMatchObject({
+      source: daysAndData[0].source,
+      createdAt: daysAndData[0].createdAt,
+    });
 
     await addEntry(daysAndData[1]);
-    expect(await getEntry(daysAndData[1].pid)).toMatchObject(daysAndData[1]);
+    expect(await getEntry(pid)).toMatchObject({
+      pid,
+    });
+    expect((await getEntry(pid))?.latestHistory?.history).toMatchObject({
+      source: daysAndData[1].source,
+      createdAt: daysAndData[1].createdAt,
+    });
 
     await addEntry(daysAndData[2]);
-    expect(await getEntry(daysAndData[2].pid)).toMatchObject(daysAndData[1]);
+    expect(await getEntry(pid)).toMatchObject({
+      pid,
+    });
+    expect((await getEntry(pid))?.latestHistory?.history).toMatchObject({
+      source: daysAndData[1].source,
+      createdAt: daysAndData[1].createdAt,
+    });
   });
 
   it("履歴は3つある", async () => {

@@ -1,6 +1,7 @@
 import { randomUUID } from "crypto";
 import { Prisma } from "@prisma/client";
 import { addTags } from "src/service/entries/addTags";
+import { updateEntryToLatestHistory } from "src/service/entries/updateEntryToLatestHistory";
 import { prisma } from "src/service/prisma/client";
 
 interface Props {
@@ -19,60 +20,45 @@ const EntryUpdateValidator = Prisma.validator<Prisma.EntryUpdateInput>();
 
 export const addEntry = async (props: Props) => {
   const now = new Date();
-  const entryData = {
+  const { pid, pageTitle, source, revision, createdAt, tags } = {
     ...props,
     createdAt: props.createdAt ?? now,
     revision: props.revision ?? randomUUID(),
   };
 
   const history = HistoryValidator({
-    source: entryData.source,
-    revision: entryData.revision,
-    createdAt: entryData.createdAt,
+    source,
+    revision,
+    createdAt,
   });
 
   const createEntry = EntryInputValidator({
-    ...entryData,
+    pid,
+    pageTitle,
+    createdAt,
+    tags: { create: [] },
     history: {
       create: history,
     },
-    tags: undefined,
   });
   const updateEntryHistory = EntryUpdateValidator({
     history: {
       connectOrCreate: {
-        where: { revision: entryData.revision },
+        where: { revision },
         create: history,
       },
     },
   });
-  const updateEntry = EntryUpdateValidator({
-    pageTitle: entryData.pageTitle,
-    source: entryData.source,
-    createdAt: entryData.createdAt,
-    tags: undefined,
-  });
 
-  await prisma.$transaction([
-    prisma.entry.upsert({
-      where: {
-        pid: entryData.pid,
-      },
-      create: createEntry,
-      update: updateEntryHistory,
-    }),
-    // updateManyとしているが一つしか更新しない
-    prisma.entry.updateMany({
-      where: {
-        pid: entryData.pid,
-        createdAt: {
-          lt: now,
-        },
-      },
-      data: updateEntry,
-    }),
-  ]);
-  const tags = props.tags;
+  const entry = await prisma.entry.upsert({
+    where: {
+      pid,
+    },
+    create: createEntry,
+    update: updateEntryHistory,
+  });
+  await updateEntryToLatestHistory(entry.id);
+
   if (tags) {
     await addTags({ pid: props.pid, tags });
   }
