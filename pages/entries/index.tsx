@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import { getEntries } from "src/service/entries/getEntry";
 import { Entry } from "src/types/Entry";
 
@@ -17,13 +17,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       entries,
     },
     revalidate: 10,
-  };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: "blocking",
   };
 };
 
