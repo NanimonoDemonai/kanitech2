@@ -35,14 +35,14 @@ model LatestHistoryOnEntry {
 
 model History {
   id                   Int                    @id @default(autoincrement())
-  entry                Entry                  @relation(fields: [entryId], references: [id], onDelete: Cascade)
-  entryId              Int
+  entry                Entry                  @relation(fields: [entryPid], references: [pid], onDelete: Cascade)
+  entryPid             String
   source               String                 @db.Text
   revision             String
   createdAt            DateTime               @default(now())
   LatestHistoryOnEntry LatestHistoryOnEntry[]
 
-  @@unique([entryId, revision])
+  @@unique([entryPid, revision])
 }
 
 model Tag {
