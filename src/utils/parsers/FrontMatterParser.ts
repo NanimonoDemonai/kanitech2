@@ -9,7 +9,6 @@ interface Res {
 
 export const frontMatterParser = (source: string): Res => {
   const { data, content } = parser(source);
-  console.log(data);
   const frontMatter = unknownObjectToFrontMatter(data);
   return { frontMatter, content: content.trim() };
 };
