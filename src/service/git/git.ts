@@ -17,29 +17,31 @@ export interface History {
   date: Date;
 }
 
-/**
- * 記事のpidのgit historyを出す
- * @param entry 記事のpid
- */
-export const getHistory = async (
-  entry: string
-): Promise<readonly History[]> => {
-  const log = await git.log<RawHistory>({
-    file: `entries/${entry}.mdx`,
-    format: {
-      user: "%an",
-      hash: "%H",
-      message: "%s",
-      date: "%ad",
-    },
-  });
-  return log.all.map((e) => ({ ...e, date: new Date(e.date) }));
-};
-
 interface Param {
   entry: string;
   hash: string;
 }
 
-export const showHistory = async ({ hash, entry }: Param): Promise<string> =>
-  git.show(`${hash}:entries/${entry}.mdx`);
+export class Git {
+  constructor(private path: string) {}
+
+  /**
+   * 記事のpidのgit historyを出す
+   * @param entry 記事のpid
+   */
+  public getHistory = async (entry: string): Promise<readonly History[]> => {
+    const log = await git.log<RawHistory>({
+      file: `${this.path}/${entry}.mdx`,
+      format: {
+        user: "%an",
+        hash: "%H",
+        message: "%s",
+        date: "%ad",
+      },
+    });
+    return log.all.map((e) => ({ ...e, date: new Date(e.date) }));
+  };
+
+  public showHistory = async ({ hash, entry }: Param): Promise<string> =>
+    git.show(`${hash}:${this.path}/${entry}.mdx`);
+}

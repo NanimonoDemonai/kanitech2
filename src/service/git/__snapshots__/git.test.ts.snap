@@ -3,6 +3,12 @@
 exports[`git should get log 1`] = `
 [
   {
+    "date": 2022-11-27T13:24:05.000Z,
+    "hash": "fe4edc90e683cf9452d2ca6c9a330be19a661714",
+    "message": "globするサービスを作る",
+    "user": "nanimono_demonai",
+  },
+  {
     "date": 2022-11-20T08:50:18.000Z,
     "hash": "b1426f894423fff7b9cf679b566a1553508c15cd",
     "message": "コミットする",
