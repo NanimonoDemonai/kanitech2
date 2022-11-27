@@ -38,9 +38,11 @@ model History {
   entry                Entry                  @relation(fields: [entryId], references: [id], onDelete: Cascade)
   entryId              Int
   source               String                 @db.Text
-  revision             String                 @unique
+  revision             String
   createdAt            DateTime               @default(now())
   LatestHistoryOnEntry LatestHistoryOnEntry[]
+
+  @@unique([entryId, revision])
 }
 
 model Tag {
