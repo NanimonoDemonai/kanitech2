@@ -41,23 +41,14 @@ export const addEntry = async (props: Props) => {
       create: history,
     },
   });
-  const updateEntryHistory = EntryUpdateValidator({
-    history: {
-      connectOrCreate: {
-        where: { revision },
-        create: history,
-      },
-    },
-  });
 
   const entry = await prisma.entry.upsert({
     where: {
       pid,
     },
     create: createEntry,
-    update: updateEntryHistory,
+    update: createEntry,
   });
-
   await updateEntryToLatestHistory(entry.id);
 
   if (tags) {
