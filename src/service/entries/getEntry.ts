@@ -18,3 +18,6 @@ export const getEntryWithHistory = (pid: string) =>
     where: { pid },
     include: { tags: true, history: true },
   });
+
+export const getEntries = () =>
+  prisma.entry.findMany({ include: { tags: true } });
