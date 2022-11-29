@@ -36,8 +36,26 @@ export const getHistory = async (file: string): Promise<readonly History[]> => {
       date: "%ad",
     },
   });
-  return log.all.map((e) => ({...e, date: new Date(e.date)}));
+  return log.all.map((e) => ({ ...e, date: new Date(e.date) }));
 };
 
-export const showHistory = async ({ hash, file }: Param): Promise<string> =>
-  git.show(`${hash}:${file}`);
+export const showHistory = async ({
+  hash,
+  file,
+}: Param): Promise<
+  | {
+      success: true;
+      data: string;
+    }
+  | { success: false; error: Error }
+> => {
+  try {
+    const data = await git.show(`${hash}:${file}`);
+    return { data, success: true };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error, success: false };
+    }
+    return { error: new Error(`${hash}, ${file}`), success: false };
+  }
+};

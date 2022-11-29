@@ -29,8 +29,17 @@ exports[`git should get log 1`] = `
 ]
 `;
 
+exports[`git should not show History 1`] = `
+{
+  "error": [Error: fatal: invalid object name 'hogehogehoge'.
+],
+  "success": false,
+}
+`;
+
 exports[`git should show History 1`] = `
-"---
+{
+  "data": "---
 title: "どのようにMDXをバンドルしているか"
 tags: [mdx, nextjs, 解説記事]
 ---
@@ -86,5 +95,15 @@ haec. Haut pro, cum ludit corpus; cum attollit
 [navigat](http://cancer.org/melumina.aspx) occiduae ferinae certo _superi_, aut
 ter!
 
-\`"
+\`",
+  "success": true,
+}
+`;
+
+exports[`git should show History 2`] = `
+{
+  "error": [Error: fatal: invalid object name 'hogehogehoge'.
+],
+  "success": false,
+}
 `;
