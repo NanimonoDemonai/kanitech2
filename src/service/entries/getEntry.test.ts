@@ -8,15 +8,21 @@ describe("getEntry", () => {
       pid: "ika",
       revision: "ikaika",
       source: "イカは美味しい",
-      tags: ["海産物"],
+      tags: ["海産物", "頭足類"],
     });
     const entry = await getEntry("ika");
-    console.log(entry);
     expect(entry).toMatchObject({
       pid: "ika",
       pageTitle: "イカ",
-      source: "test",
-      revision: "1",
     });
+    expect(entry?.latestHistory?.history).toMatchObject({
+      entryPid: "ika",
+      source: "イカは美味しい",
+      revision: "ikaika",
+    });
+    expect(entry?.tags.map((e) => e.tagName)).toIncludeAllMembers([
+      "海産物",
+      "頭足類",
+    ]);
   });
 });
