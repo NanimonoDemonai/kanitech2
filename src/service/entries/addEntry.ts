@@ -55,7 +55,7 @@ export const addEntry = async (props: Props) => {
     },
   });
 
-  const entry = await prisma.entry.upsert({
+  await prisma.entry.upsert({
     where: {
       pid,
     },
@@ -66,6 +66,6 @@ export const addEntry = async (props: Props) => {
   await updateEntryToLatestHistory(pid);
 
   if (tags) {
-    await addTags({ pid: props.pid, tags });
+    await addTags({ pid, tags });
   }
 };
