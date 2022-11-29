@@ -1,8 +1,8 @@
 import { prisma } from "src/service/prisma/client";
 
-export const updateEntryToLatestHistory = async (entryId: number) => {
+export const updateEntryToLatestHistory = async (pid: string) => {
   const latestHistory = await prisma.history.findFirst({
-    where: { entryId },
+    where: { entryPid: pid },
     orderBy: { createdAt: "desc" },
   });
 
@@ -11,7 +11,7 @@ export const updateEntryToLatestHistory = async (entryId: number) => {
   }
 
   await prisma.entry.update({
-    where: { id: entryId },
+    where: { pid },
     data: {
       latestHistory: {
         upsert: {

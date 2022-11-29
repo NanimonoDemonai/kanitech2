@@ -1,4 +1,5 @@
 import { GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 import { getEntries } from "src/service/entries/getEntry";
 import { Entry } from "src/types/Entry";
 
@@ -24,7 +25,9 @@ const Index: NextPage<Props> = ({ entries }) => {
   return (
     <div>
       {entries.map((e) => (
-        <p key={e.pid}>{e.pageTitle}</p>
+        <p key={e.pid}>
+          <Link href={`/entries/${e.pid}`}>{e.pageTitle}</Link>
+        </p>
       ))}
     </div>
   );

@@ -63,7 +63,7 @@ export const addEntry = async (props: Props) => {
     update: updateEntryHistory,
   });
 
-  await updateEntryToLatestHistory(entry.id);
+  await updateEntryToLatestHistory(pid);
 
   if (tags) {
     await addTags({ pid: props.pid, tags });
