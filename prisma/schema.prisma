@@ -37,6 +37,7 @@ model History {
   id                   Int                    @id @default(autoincrement())
   entry                Entry                  @relation(fields: [entryPid], references: [pid], onDelete: Cascade)
   entryPid             String
+  message              String                 @default("")
   source               String                 @db.Text
   revision             String
   createdAt            DateTime               @default(now())

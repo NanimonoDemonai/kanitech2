@@ -8,6 +8,7 @@ interface Props {
   pid: string;
   pageTitle?: string;
   source: string;
+  message?: string;
   revision?: string;
   createdAt?: Date;
   tags?: string[];
@@ -20,7 +21,7 @@ const EntryUpdateValidator = Prisma.validator<Prisma.EntryUpdateInput>();
 
 export const addEntry = async (props: Props) => {
   const now = new Date();
-  const { pid, pageTitle, source, revision, createdAt, tags } = {
+  const { pid, pageTitle, source, revision, createdAt, tags, message } = {
     ...props,
     createdAt: props.createdAt ?? now,
     revision: props.revision ?? randomUUID(),
@@ -30,6 +31,7 @@ export const addEntry = async (props: Props) => {
     source,
     revision,
     createdAt,
+    message,
   });
 
   const createEntry = EntryInputValidator({

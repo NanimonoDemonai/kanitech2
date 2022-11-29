@@ -10,7 +10,7 @@ const addEntriesToDB = async () => {
       const history = await getHistory(path);
 
       history.map(async (e) => {
-        const { date, hash } = e;
+        const { date, hash, message } = e;
         try {
           const res = await showHistory({ hash, file: path });
           if (!res.success) {
@@ -24,6 +24,7 @@ const addEntriesToDB = async () => {
             pid: name,
             revision: hash,
             source,
+            message,
             tags: frontMatter.tags,
           };
           await addEntry(entry);
