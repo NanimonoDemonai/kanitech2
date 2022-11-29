@@ -8,10 +8,15 @@ const addEntriesToDB = async () => {
   await Promise.all(
     entriesFilename.map(async ({ name, path }) => {
       const history = await getHistory(path);
+
       history.map(async (e) => {
         const { date, hash } = e;
         try {
-          const source = await showHistory({ hash, file: path });
+          const res = await showHistory({ hash, file: path });
+          if (!res.success) {
+            return;
+          }
+          const source = res.data;
           const { frontMatter } = frontMatterParser(source);
           const entry = {
             createdAt: date,
