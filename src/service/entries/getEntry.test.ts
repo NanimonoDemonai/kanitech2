@@ -1,18 +1,20 @@
+import { addEntry } from "src/service/entries/addEntry";
 import { getEntry } from "src/service/entries/getEntry";
-import { prisma } from "src/service/prisma/client";
 
 describe("getEntry", () => {
   it("should getEntry", async () => {
-    await prisma.entry.create({
-      data: {
-        pid: "aaa",
-        source: "test",
-        revision: "1",
-      },
+    await addEntry({
+      pageTitle: "イカ",
+      pid: "ika",
+      revision: "ikaika",
+      source: "イカは美味しい",
+      tags: ["海産物"],
     });
-    const entry = await getEntry("aaa");
+    const entry = await getEntry("ika");
+    console.log(entry);
     expect(entry).toMatchObject({
-      pid: "aaa",
+      pid: "ika",
+      pageTitle: "イカ",
       source: "test",
       revision: "1",
     });
