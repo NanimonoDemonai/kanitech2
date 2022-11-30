@@ -1,6 +1,6 @@
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
-import { ThemeChanger } from "src/components/ThemeChanger";
+import { ThemeChanger } from "src/components/organisms/ThemeChanger";
 import "../styles/global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
