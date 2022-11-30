@@ -7,9 +7,13 @@ export const ThemeChanger: FC = () => {
   return (
     <div>
       {theme === "dark" ? (
-        <button onClick={() => setTheme("light")}>Light Mode</button>
+        <button onClick={() => setTheme("light")} suppressHydrationWarning>
+          Light Mode
+        </button>
       ) : (
-        <button onClick={() => setTheme("dark")}>Dark Mode</button>
+        <button onClick={() => setTheme("dark")} suppressHydrationWarning>
+          Dark Mode
+        </button>
       )}
     </div>
   );
