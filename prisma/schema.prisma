@@ -11,8 +11,7 @@ datasource db {
 }
 
 model Entry {
-  id            Int                   @id @default(autoincrement())
-  pid           String                @unique
+  pid           String                @id @unique
   pageTitle     String                @default("")
   createdAt     DateTime              @default(now())
   updatedAt     DateTime              @updatedAt
@@ -24,17 +23,15 @@ model Entry {
 }
 
 model LatestHistoryOnEntry {
-  id        Int     @id @default(autoincrement())
-  entry     Entry   @relation(fields: [entryId], references: [id], onDelete: Cascade)
-  entryId   Int     @unique
-  history   History @relation(fields: [historyId], references: [id], onDelete: Cascade)
-  historyId Int     @unique
+  entry    Entry   @relation(fields: [entryPid], references: [pid], onDelete: Cascade)
+  entryPid String  @unique
+  history  History @relation(fields: [entryPid, revision], references: [entryPid, revision], onDelete: Cascade)
+  revision String  @unique
 
-  @@unique([entryId, historyId])
+  @@id([entryPid, revision], name: "entryRevision")
 }
 
 model History {
-  id                   Int                    @id @default(autoincrement())
   entry                Entry                  @relation(fields: [entryPid], references: [pid], onDelete: Cascade)
   entryPid             String
   message              String                 @default("")
@@ -43,7 +40,7 @@ model History {
   createdAt            DateTime               @default(now())
   LatestHistoryOnEntry LatestHistoryOnEntry[]
 
-  @@unique([entryPid, revision])
+  @@id([entryPid, revision], name: "entryRevision")
 }
 
 model Tag {

@@ -15,8 +15,8 @@ export const updateEntryToLatestHistory = async (pid: string) => {
     data: {
       latestHistory: {
         upsert: {
-          create: { historyId: latestHistory.id },
-          update: { historyId: latestHistory.id },
+          create: { revision: latestHistory.revision },
+          update: { revision: latestHistory.revision },
         },
       },
     },

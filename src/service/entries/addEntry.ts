@@ -47,9 +47,9 @@ export const addEntry = async (props: Props) => {
     history: {
       connectOrCreate: {
         where: {
-          entryPid_revision: {
-            revision,
+          entryRevision: {
             entryPid: pid,
+            revision,
           },
         },
         create: history,
