@@ -99,11 +99,3 @@ ter!
   "success": true,
 }
 `;
-
-exports[`git should show History 2`] = `
-{
-  "error": [Error: fatal: invalid object name 'hogehogehoge'.
-],
-  "success": false,
-}
-`;
