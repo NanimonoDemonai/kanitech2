@@ -1,4 +1,4 @@
-import { addEntry } from "src/service/entries/addEntry";
+import { addEntry } from "src/service/database/entries/addEntry";
 import { getEntries } from "src/service/fs/getEntries";
 import { getHistory, showHistory } from "src/service/git/git";
 import { frontMatterParser } from "src/utils/parsers/FrontMatterParser";

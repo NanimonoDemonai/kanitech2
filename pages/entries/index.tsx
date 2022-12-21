@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
-import { getEntries } from "src/service/entries/getEntry";
+import { getEntries } from "src/service/database/entries/getEntry";
 import { Entry } from "src/types/Entry";
 
 interface Props {

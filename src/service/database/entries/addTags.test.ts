@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 import "jest-extended";
-import { addEntry } from "src/service/entries/addEntry";
-import { addTags } from "src/service/entries/addTags";
-import { getEntry } from "src/service/entries/getEntry";
+import { addEntry } from "src/service/database/entries/addEntry";
+import { addTags } from "src/service/database/entries/addTags";
+import { getEntry } from "src/service/database/entries/getEntry";
 
 describe("addTags", () => {
   it("タグがつけられる", async () => {

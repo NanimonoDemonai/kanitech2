@@ -1,5 +1,5 @@
-import { addEntry } from "src/service/entries/addEntry";
-import { getEntry } from "src/service/entries/getEntry";
+import { addEntry } from "src/service/database/entries/addEntry";
+import { getEntry } from "src/service/database/entries/getEntry";
 
 describe("getEntry", () => {
   it("should getEntry", async () => {

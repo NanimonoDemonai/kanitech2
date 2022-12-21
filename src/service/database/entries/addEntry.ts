@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
-import { addTags } from "src/service/entries/addTags";
-import { updateEntryToLatestHistory } from "src/service/entries/updateEntryToLatestHistory";
-import { upsertEntry } from "src/service/entries/upsertEntry";
+import { addTags } from "src/service/database/entries/addTags";
+import { updateEntryToLatestHistory } from "src/service/database/entries/updateEntryToLatestHistory";
+import { upsertEntry } from "src/service/database/entries/upsertEntry";
 
 interface Props {
   pid: string;

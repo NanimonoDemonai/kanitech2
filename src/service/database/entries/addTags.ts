@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { prisma } from "src/service/prisma/client";
+import { prisma } from "src/service/database/prisma/client";
 
 interface Props {
   pid: string;
