@@ -2,9 +2,9 @@ import { randomUUID } from "crypto";
 import { faker } from "@faker-js/faker";
 import dayjs from "dayjs";
 import "jest-extended";
-import { getEntry } from "src/service/database/entries/getEntry";
-import { updateEntryToLatestHistory } from "src/service/database/entries/updateEntryToLatestHistory";
-import { prisma } from "src/service/database/prisma/client";
+import { getEntry } from "src/infrastructures/database/entries/getEntry";
+import { updateEntryToLatestHistory } from "src/infrastructures/database/entries/updateEntryToLatestHistory";
+import { prisma } from "src/infrastructures/database/prisma/client";
 
 describe("addEntryToLatestHistory", () => {
   it("最新のhistoryになる", async () => {

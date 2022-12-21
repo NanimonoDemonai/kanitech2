@@ -1,4 +1,4 @@
-import { prisma } from "src/service/database/prisma/client";
+import { prisma } from "src/infrastructures/database/prisma/client";
 
 export const getEntry = (pid: string) =>
   prisma.entry.findUnique({

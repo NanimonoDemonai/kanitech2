@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { getMDXComponent } from "mdx-bundler/client";
 import { FC, useMemo } from "react";
-import { compileMdx } from "src/service/mdx/compileMdx";
+import { compileMdx } from "src/infrastructures/mdx/compileMdx";
 
 const src = `
 ---

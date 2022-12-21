@@ -1,7 +1,7 @@
+import { getMDXComponent } from "mdx-bundler/client";
 import { GetStaticProps, NextPage } from "next";
 import { useMemo } from "react";
-import { getMDXComponent } from "mdx-bundler/client";
-import { compileMdx } from "../../src/service/mdx/compileMdx";
+import { compileMdx } from "../../src/infrastructures/mdx/compileMdx";
 
 interface Props {
   code: string;
@@ -87,9 +87,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 const BundleMdx: NextPage<Props> = ({ code }) => {
   const Component = useMemo(() => getMDXComponent(code), [code]);
   return (
-    <>
-      <Component />
-    </>
+      <>
+        <Component />
+      </>
   );
 };
 

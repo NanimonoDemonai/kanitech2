@@ -1,10 +1,10 @@
 import { faker } from "@faker-js/faker";
 import dayjs from "dayjs";
-import { addEntry } from "src/service/database/entries/addEntry";
+import { addEntry } from "src/infrastructures/database/entries/addEntry";
 import {
   getEntry,
   getEntryWithHistory,
-} from "src/service/database/entries/getEntry";
+} from "src/infrastructures/database/entries/getEntry";
 
 describe("addEntry", () => {
   it("デフォルト値で作成できる", async () => {

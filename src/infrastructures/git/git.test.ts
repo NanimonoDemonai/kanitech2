@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-import {getHistory, showHistory} from "src/service/git/git";
+import { getHistory, showHistory } from "src/infrastructures/git/git";
 
 describe("git", () => {
   it("should get log", async () => {

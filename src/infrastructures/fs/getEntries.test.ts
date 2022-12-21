@@ -1,7 +1,7 @@
 /*
  * @jest-environment node
  */
-import { getEntries } from "src/service/fs/getEntries";
+import { getEntries } from "src/infrastructures/fs/getEntries";
 
 describe("getEntries", () => {
   it("getEntries", async () => {

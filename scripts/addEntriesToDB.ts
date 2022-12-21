@@ -1,6 +1,6 @@
-import { addEntry } from "src/service/database/entries/addEntry";
-import { getEntries } from "src/service/fs/getEntries";
-import { getHistory, showHistory } from "src/service/git/git";
+import { addEntry } from "src/infrastructures/database/entries/addEntry";
+import { getEntries } from "src/infrastructures/fs/getEntries";
+import { getHistory, showHistory } from "src/infrastructures/git/git";
 import { frontMatterParser } from "src/utils/parsers/FrontMatterParser";
 
 const addEntriesToDB = async () => {
