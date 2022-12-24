@@ -2,8 +2,9 @@ import { MDXProvider } from "@mdx-js/react";
 import { getMDXComponent } from "mdx-bundler/client";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useMemo } from "react";
-import { compileMdx } from "src/infrastructures/mdx/compileMdx";
-import { frontMatterParser } from "src/utils/parsers/FrontMatterParser";
+import { container } from "src/di/container";
+import { EntryPageStore } from "src/Stores/EntryPageStore";
+import { EntryInteractor } from "src/useCases/EntryUseCases";
 import { unknownParamsToPIDParams } from "src/utils/validators/unknownParamsToPIDParams";
 
 interface Props {
@@ -15,13 +16,21 @@ interface Props {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const pid = unknownParamsToPIDParams(params);
   if (!pid) return { notFound: true };
-  const { default: src } = await import(`entries/${pid}.mdx?raw`);
-  const { frontMatter, content } = frontMatterParser(src);
-  const { code } = await compileMdx(content);
+
+  const childContainer = container.createChildContainer();
+  const store = childContainer.resolve(EntryPageStore);
+  const interactor = childContainer.resolve(EntryInteractor);
+  await interactor.handleGet(pid);
+  const select = store.select((s) => ({
+    code: s.renderedSource,
+    title: s.pageTitle,
+  }));
+  if (!select) return { notFound: true };
+  const { code, title } = select;
   return {
     props: {
       code,
-      title: frontMatter.title,
+      title,
       pid,
     },
     revalidate: 10,

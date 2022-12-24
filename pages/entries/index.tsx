@@ -1,7 +1,7 @@
 import { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
+import { Entry } from "src/domains/Entry";
 import { getEntries } from "src/infrastructures/database/entries/getEntry";
-import { Entry } from "src/types/Entry";
 
 interface Props {
   entries: Entry[];

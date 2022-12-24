@@ -20,3 +20,25 @@ export class EntryUseCases {
     return await this.repository.find(pid);
   }
 }
+
+export interface EntryPresenter {
+  complete: (entry: Entry) => void;
+  fail: () => void;
+}
+
+@injectable()
+export class EntryInteractor {
+  constructor(
+    @inject("EntryPresenter") private presenter: EntryPresenter,
+    @inject("EntryUseCases") private useCases: EntryUseCases
+  ) {}
+
+  public async handleGet(pid: string) {
+    const entry = await this.useCases.find(pid);
+    if (!entry) {
+      this.presenter.fail();
+      return;
+    }
+    this.presenter.complete(entry);
+  }
+}
