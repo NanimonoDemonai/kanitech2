@@ -1,6 +1,7 @@
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { ThemeChanger } from "src/components/organisms/ThemeChanger";
+import { trpc } from "src/infrastructures/trpc/trpc";
 import "../styles/global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -13,4 +14,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default trpc.withTRPC(MyApp);
