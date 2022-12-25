@@ -24,8 +24,4 @@ export class EntryPageStore
     const renderedSource = await this.renderer.render(entry);
     this.store = { ...entry, renderedSource };
   }
-
-  public async fail() {
-    /* noop */
-  }
 }

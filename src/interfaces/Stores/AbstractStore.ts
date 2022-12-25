@@ -5,4 +5,8 @@ export abstract class AbstractStore<VM> {
     if (!this.store) return null;
     return selector(this.store);
   }
+
+  public async fail() {
+    /* noop */
+  }
 }

@@ -13,8 +13,4 @@ export class EntriesPageStore
   public async complete(entry: Entry[]) {
     this.store = entry;
   }
-
-  public async fail() {
-    /* noop */
-  }
 }
