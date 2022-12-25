@@ -21,9 +21,13 @@ export const addEntry = async (props: Props) => {
     revision: props.revision ?? randomUUID(),
   };
 
-  await upsertEntry({ source, revision, createdAt, message, pid, pageTitle });
-  await updateEntryToLatestHistory(pid);
-  if (tags) {
-    await addTags({ pid, tags });
+  try {
+    await upsertEntry({ source, revision, createdAt, message, pid, pageTitle });
+    await updateEntryToLatestHistory(pid);
+    if (tags) {
+      await addTags({ pid, tags });
+    }
+  } catch (e) {
+    console.log(e);
   }
 };

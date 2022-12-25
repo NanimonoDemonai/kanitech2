@@ -10,6 +10,7 @@
     "prisma:format": "prisma format",
     "prisma:setuptest": "dotenv -e .env.test -- prisma migrate deploy ",
     "prisma:dev": "dotenv -e .env.local -- prisma migrate dev ",
+    "prisma:studio": "dotenv -e .env.local -- prisma studio ",
     "add-entries": "dotenv -e .env.local -- ts-node scripts/addEntriesToDB.ts",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
