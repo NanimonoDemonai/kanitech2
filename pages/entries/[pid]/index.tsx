@@ -2,9 +2,9 @@ import { MDXProvider } from "@mdx-js/react";
 import { getMDXComponent } from "mdx-bundler/client";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useMemo } from "react";
-import { container } from "src/di/container";
+import { getSessionContainer } from "src/di/container";
 import { EntryPageStore } from "src/interfaces/Stores/EntryPageStore";
-import { EntryInteractor } from "src/useCases/EntryUseCases";
+import { EntryInteractor } from "src/useCases/interactores/EntryInteractors";
 import { unknownParamsToPIDParams } from "src/utils/validators/unknownParamsToPIDParams";
 
 interface Props {
@@ -16,9 +16,9 @@ interface Props {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const pid = unknownParamsToPIDParams(params);
   if (!pid) return { notFound: true };
-  const childContainer = container.createChildContainer();
-  const interactor = childContainer.resolve(EntryInteractor);
-  const store = childContainer.resolve(EntryPageStore);
+  const container = getSessionContainer();
+  const interactor = container.resolve(EntryInteractor);
+  const store = container.resolve(EntryPageStore);
   await interactor.handleGet(pid);
   const select = store.select((s) => ({
     code: s.renderedSource,

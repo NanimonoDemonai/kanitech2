@@ -1,6 +1,9 @@
 import { Entry, EntryHistory } from "src/domains/Entry";
 import { addEntry } from "src/infrastructures/database/entries/addEntry";
-import { getEntry } from "src/infrastructures/database/entries/getEntry";
+import {
+  getEntries,
+  getEntry,
+} from "src/infrastructures/database/entries/getEntry";
 import { EntryRepositoryInterface } from "src/useCases/EntryUseCases";
 
 export class EntryRepository implements EntryRepositoryInterface {
@@ -24,5 +27,20 @@ export class EntryRepository implements EntryRepositoryInterface {
       revision: history.revision,
       message: history.message,
     });
+  }
+
+  public async findEntries() {
+    const rawEntries = await getEntries();
+    if (!rawEntries) return null;
+    return rawEntries.map(
+        (rawEntry): Entry => ({
+          pid: rawEntry.pid,
+          pageTitle: rawEntry.pageTitle,
+          createdAt: rawEntry.createdAt,
+          updatedAt: rawEntry.updatedAt,
+          tags: rawEntry.tags.map((e) => e.tagName),
+          source: "",
+        })
+    );
   }
 }

@@ -1,9 +1,9 @@
-import { container } from "src/di/container";
-
+import { getSessionContainer } from "src/di/container";
 import { EntryHistoryUseCases } from "src/useCases/EntryHistoryUseCases";
 import { EntryUseCases } from "src/useCases/EntryUseCases";
 
 const addEntriesToDB = async () => {
+  const container = getSessionContainer();
   const entryUseCase = container.resolve(EntryUseCases);
   const historyUseCase = container.resolve(EntryHistoryUseCases);
   const histories = await historyUseCase.findAll();

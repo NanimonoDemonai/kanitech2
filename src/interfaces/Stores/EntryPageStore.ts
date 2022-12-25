@@ -1,6 +1,7 @@
 import { inject, Lifecycle, scoped } from "tsyringe";
 import { Entry } from "src/domains/Entry";
-import { EntryPresenter } from "src/useCases/EntryUseCases";
+import { AbstractStore } from "src/interfaces/Stores/AbstractStore";
+import { EntryPresenter } from "src/useCases/interactores/EntryInteractors";
 
 export interface EntryPageViewModel extends Entry {
   renderedSource: string;
@@ -11,10 +12,13 @@ export interface EntryRenderer {
 }
 
 @scoped(Lifecycle.ContainerScoped)
-export class EntryPageStore implements EntryPresenter {
-  public store: EntryPageViewModel | null = null;
-
-  constructor(@inject("RenderEntry") private renderer: EntryRenderer) {}
+export class EntryPageStore
+  extends AbstractStore<EntryPageViewModel>
+  implements EntryPresenter
+{
+  constructor(@inject("RenderEntry") private renderer: EntryRenderer) {
+    super();
+  }
 
   public async complete(entry: Entry) {
     const renderedSource = await this.renderer.render(entry);
@@ -23,10 +27,5 @@ export class EntryPageStore implements EntryPresenter {
 
   public async fail() {
     /* noop */
-  }
-
-  public select<T>(selector: (store: EntryPageViewModel) => T): T | null {
-    if (!this.store) return null;
-    return selector(this.store);
   }
 }
