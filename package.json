@@ -19,6 +19,11 @@
     "@mdx-js/react": "^2.1.5",
     "@next/mdx": "^13.0.3",
     "@prisma/client": "4.6.1",
+    "@tanstack/react-query": "^4.20.4",
+    "@trpc/client": "^10.7.0",
+    "@trpc/next": "^10.7.0",
+    "@trpc/react-query": "^10.7.0",
+    "@trpc/server": "^10.7.0",
     "dayjs": "^1.11.6",
     "esbuild": "^0.15.13",
     "gray-matter": "^4.0.3",
@@ -84,6 +89,6 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.0",
     "typescript": "^4.9.3",
-    "zod": "3.18.0"
+    "zod": "^3.20.2"
   }
 }
