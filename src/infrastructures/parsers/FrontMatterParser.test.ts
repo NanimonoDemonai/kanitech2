@@ -1,4 +1,4 @@
-import { frontMatterParser } from "src/utils/parsers/FrontMatterParser";
+import { frontMatterParser } from "src/infrastructures/parsers/FrontMatterParser";
 
 const src = `
 ---

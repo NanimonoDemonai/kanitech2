@@ -3,8 +3,8 @@ import { EntryHistory } from "src/domains/Entry";
 
 import { getEntries } from "src/infrastructures/fs/getEntries";
 import { getHistory, showHistory } from "src/infrastructures/git/git";
+import { frontMatterParser } from "src/infrastructures/parsers/FrontMatterParser";
 import { EntryUseCases } from "src/useCases/EntryUseCases";
-import { frontMatterParser } from "src/utils/parsers/FrontMatterParser";
 
 const addEntriesToDB = async () => {
   const entriesFilename = await getEntries("entries");
