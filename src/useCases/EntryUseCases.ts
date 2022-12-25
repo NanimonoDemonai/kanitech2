@@ -22,8 +22,8 @@ export class EntryUseCases {
 }
 
 export interface EntryPresenter {
-  complete: (entry: Entry) => void;
-  fail: () => void;
+  complete: (entry: Entry) => Promise<void>;
+  fail: () => Promise<void>;
 }
 
 @injectable()
@@ -36,9 +36,9 @@ export class EntryInteractor {
   public async handleGet(pid: string) {
     const entry = await this.useCases.find(pid);
     if (!entry) {
-      this.presenter.fail();
+      await this.presenter.fail();
       return;
     }
-    this.presenter.complete(entry);
+    await this.presenter.complete(entry);
   }
 }

@@ -16,10 +16,11 @@ interface Props {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const pid = unknownParamsToPIDParams(params);
   if (!pid) return { notFound: true };
-
   const childContainer = container.createChildContainer();
-  const store = childContainer.resolve(EntryPageStore);
   const interactor = childContainer.resolve(EntryInteractor);
+  const store = childContainer.resolve(EntryPageStore);
+  childContainer.resolve(EntryInteractor);
+  childContainer.resolve(EntryInteractor);
   await interactor.handleGet(pid);
   const select = store.select((s) => ({
     code: s.renderedSource,
