@@ -1,19 +1,19 @@
-import { inject, injectable } from "tsyringe";
-import { Entry } from "src/domains/Entry";
+import { inject, singleton } from "tsyringe";
+import { Entry, EntryHistory } from "src/domains/Entry";
 
 export interface EntryRepositoryInterface {
-  save: (entry: Entry) => Promise<void>;
+  save: (entry: EntryHistory) => Promise<void>;
   find: (pid: Entry["pid"]) => Promise<Entry | null>;
 }
 
-@injectable()
+@singleton()
 export class EntryUseCases {
   constructor(
     @inject("EntryRepository") private repository: EntryRepositoryInterface
   ) {}
 
-  public async save(entry: Entry) {
-    await this.repository.save(entry);
+  public async save(history: EntryHistory) {
+    await this.repository.save(history);
   }
 
   public async find(pid: Entry["pid"]) {
@@ -26,7 +26,7 @@ export interface EntryPresenter {
   fail: () => Promise<void>;
 }
 
-@injectable()
+@singleton()
 export class EntryInteractor {
   constructor(
     @inject("EntryPresenter") private presenter: EntryPresenter,

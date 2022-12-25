@@ -27,7 +27,6 @@ export class EntryPageStore implements EntryPresenter {
 
   public select<T>(selector: (store: EntryPageViewModel) => T): T | null {
     if (!this.store) return null;
-
     return selector(this.store);
   }
 }

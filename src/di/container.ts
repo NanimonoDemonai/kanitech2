@@ -5,7 +5,6 @@ import { MdxEntryRenderer } from "src/infrastructures/mdx/EntryRenderer";
 import { EntryPageStore } from "src/Stores/EntryPageStore";
 import { EntryUseCases } from "src/useCases/EntryUseCases";
 
-
 container.register("EntryRepository", {
   useClass: EntryRepository,
 });

@@ -1,6 +1,9 @@
-import { addEntry } from "src/infrastructures/database/entries/addEntry";
+import { container } from "src/di/container";
+import { EntryHistory } from "src/domains/Entry";
+
 import { getEntries } from "src/infrastructures/fs/getEntries";
 import { getHistory, showHistory } from "src/infrastructures/git/git";
+import { EntryUseCases } from "src/useCases/EntryUseCases";
 import { frontMatterParser } from "src/utils/parsers/FrontMatterParser";
 
 const addEntriesToDB = async () => {
@@ -18,16 +21,21 @@ const addEntriesToDB = async () => {
           }
           const source = res.data;
           const { frontMatter } = frontMatterParser(source);
-          const entry = {
+          const entry: EntryHistory = {
+            entry: {
+              createdAt: date,
+              pageTitle: frontMatter.title,
+              pid: name,
+              source,
+              updatedAt: date,
+              tags: frontMatter.tags,
+            },
             createdAt: date,
-            pageTitle: frontMatter.title,
-            pid: name,
             revision: hash,
-            source,
             message,
-            tags: frontMatter.tags,
           };
-          await addEntry(entry);
+          const useCase = container.resolve(EntryUseCases);
+          await useCase.save(entry);
         } catch (e) {
           console.log(e);
         }
