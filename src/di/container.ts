@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { container, instancePerContainerCachingFactory } from "tsyringe";
+import { MdxEntryRenderer } from "src/drivers/EntryRenderer";
 import { EntryRepository } from "src/drivers/EntryRepository";
 import { FileBaseEntryHistoryRepository } from "src/drivers/FileBaseEntryHistoryRepository";
-import { MdxEntryRenderer } from "src/infrastructures/mdx/EntryRenderer";
 import { EntryPageStore } from "src/interfaces/Stores/EntryPageStore";
 import { EntryUseCases } from "src/useCases/EntryUseCases";
 
