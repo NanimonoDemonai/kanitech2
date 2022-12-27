@@ -1,8 +1,9 @@
 import { inject, singleton } from "tsyringe";
-import { EntryHistory } from "src/domains/Entry";
+import { EntryWithHistory, SourceHistory } from "src/domains/Entry";
 
 export interface EntryHistoryRepositoryInterface {
-  findAll: () => Promise<EntryHistory[]>;
+  findAll: () => Promise<EntryWithHistory[]>;
+  findHistoryByPid: (pid: string) => Promise<SourceHistory[]>;
 }
 
 @singleton()
@@ -14,5 +15,9 @@ export class EntryHistoryUseCases {
 
   public async findAll() {
     return await this.repository.findAll();
+  }
+
+  public async findHistoryByPid(pid: string) {
+    return await this.repository.findHistoryByPid(pid);
   }
 }

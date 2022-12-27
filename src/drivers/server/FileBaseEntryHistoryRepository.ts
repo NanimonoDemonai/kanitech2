@@ -1,4 +1,4 @@
-import { EntryHistory } from "src/domains/Entry";
+import { EntryWithHistory } from "src/domains/Entry";
 import { getEntries } from "src/infrastructures/fs/getEntries";
 import { getHistory, showHistory } from "src/infrastructures/git/git";
 import { frontMatterParser } from "src/infrastructures/parsers/FrontMatterParser";
@@ -8,7 +8,7 @@ export class FileBaseEntryHistoryRepository
   implements EntryHistoryRepositoryInterface
 {
   public async findAll() {
-    const entryHistories: EntryHistory[] = [];
+    const entryHistories: EntryWithHistory[] = [];
     const entriesFilename = await getEntries("entries");
     await Promise.all(
       entriesFilename.map(async ({ name, path }) => {
@@ -23,7 +23,7 @@ export class FileBaseEntryHistoryRepository
               }
               const source = res.data;
               const { frontMatter } = frontMatterParser(source);
-              const entry: EntryHistory = {
+              const entry: EntryWithHistory = {
                 entry: {
                   createdAt: date,
                   pageTitle: frontMatter.title,
@@ -45,5 +45,10 @@ export class FileBaseEntryHistoryRepository
       })
     );
     return entryHistories;
+  }
+
+  public async findHistoryByPid(pid: string) {
+    // not implemented
+    return [];
   }
 }

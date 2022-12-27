@@ -1,4 +1,4 @@
-import { Entry, EntryHistory } from "src/domains/Entry";
+import { Entry, EntryWithHistory } from "src/domains/Entry";
 import { addEntry } from "src/infrastructures/database/entries/addEntry";
 import {
   getEntries,
@@ -21,7 +21,7 @@ export class EntryRepository implements EntryRepositoryInterface {
     return entry;
   }
 
-  public async save(history: EntryHistory): Promise<void> {
+  public async save(history: EntryWithHistory): Promise<void> {
     await addEntry({
       ...history.entry,
       revision: history.revision,
@@ -33,14 +33,14 @@ export class EntryRepository implements EntryRepositoryInterface {
     const rawEntries = await getEntries();
     if (!rawEntries) return null;
     return rawEntries.map(
-        (rawEntry): Entry => ({
-          pid: rawEntry.pid,
-          pageTitle: rawEntry.pageTitle,
-          createdAt: rawEntry.createdAt,
-          updatedAt: rawEntry.updatedAt,
-          tags: rawEntry.tags.map((e) => e.tagName),
-          source: "",
-        })
+      (rawEntry): Entry => ({
+        pid: rawEntry.pid,
+        pageTitle: rawEntry.pageTitle,
+        createdAt: rawEntry.createdAt,
+        updatedAt: rawEntry.updatedAt,
+        tags: rawEntry.tags.map((e) => e.tagName),
+        source: "",
+      })
     );
   }
 }

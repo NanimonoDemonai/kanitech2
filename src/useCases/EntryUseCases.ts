@@ -1,8 +1,8 @@
 import { inject, singleton } from "tsyringe";
-import { Entry, EntryHistory } from "src/domains/Entry";
+import { Entry, EntryWithHistory } from "src/domains/Entry";
 
 export interface EntryRepositoryInterface {
-  save: (entry: EntryHistory) => Promise<void>;
+  save: (entry: EntryWithHistory) => Promise<void>;
   find: (pid: Entry["pid"]) => Promise<Entry | null>;
   findEntries: () => Promise<Entry[] | null>;
 }
@@ -13,7 +13,7 @@ export class EntryUseCases {
     @inject("EntryRepository") private repository: EntryRepositoryInterface
   ) {}
 
-  public async save(history: EntryHistory) {
+  public async save(history: EntryWithHistory) {
     await this.repository.save(history);
   }
 

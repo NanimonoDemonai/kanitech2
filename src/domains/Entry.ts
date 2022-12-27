@@ -7,9 +7,13 @@ export interface Entry {
   readonly tags: string[];
 }
 
-export interface EntryHistory {
+export type EntryWithHistory = {
+  readonly entry: Entry;
+} & Omit<SourceHistory, "source">;
+
+export interface SourceHistory {
   readonly revision: string;
   readonly message: string;
   readonly createdAt: Date;
-  readonly entry: Entry;
+  readonly source: string;
 }
