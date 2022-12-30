@@ -26,10 +26,6 @@ container.register("RenderEntry", {
   useClass: MdxEntryRenderer,
 });
 
-container.register("EntryHistoryRepository", {
-  useClass: FileBaseEntryHistoryRepository,
-});
-
 container.register("EntriesListPresenter", {
   useFactory: instancePerContainerCachingFactory((c) =>
     c.resolve(EntriesPageStore)
@@ -38,6 +34,10 @@ container.register("EntriesListPresenter", {
 
 container.register("EntryHistoryRepository", {
   useClass: HistoryRepository,
+});
+
+container.register("BatchHistoryRepository", {
+  useClass: FileBaseEntryHistoryRepository,
 });
 
 export const getContainer = () => container;

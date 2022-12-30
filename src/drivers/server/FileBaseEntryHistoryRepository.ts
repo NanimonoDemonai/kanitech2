@@ -2,10 +2,10 @@ import { EntryWithHistory } from "src/domains/Entry";
 import { getEntries } from "src/infrastructures/fs/getEntries";
 import { getHistory, showHistory } from "src/infrastructures/git/git";
 import { frontMatterParser } from "src/infrastructures/parsers/FrontMatterParser";
-import { EntryHistoryRepositoryInterface } from "src/useCases/EntryHistoryUseCases";
+import { BatchHistoryRepositoryInterface } from "src/useCases/BatchHistoryUseCase";
 
 export class FileBaseEntryHistoryRepository
-  implements EntryHistoryRepositoryInterface
+  implements BatchHistoryRepositoryInterface
 {
   public async findAll() {
     const entryHistories: EntryWithHistory[] = [];
@@ -42,10 +42,5 @@ export class FileBaseEntryHistoryRepository
       })
     );
     return entryHistories;
-  }
-
-  public async findHistoryByPid(pid: string) {
-    // not implemented
-    return [];
   }
 }
