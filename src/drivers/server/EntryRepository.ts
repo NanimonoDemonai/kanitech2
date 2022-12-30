@@ -23,9 +23,7 @@ export class EntryRepository implements EntryRepositoryInterface {
 
   public async save(history: EntryWithHistory): Promise<void> {
     await addEntry({
-      ...history.entry,
-      revision: history.revision,
-      message: history.message,
+      ...history,
     });
   }
 

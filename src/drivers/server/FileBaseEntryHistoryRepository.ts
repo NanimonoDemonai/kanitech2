@@ -24,15 +24,12 @@ export class FileBaseEntryHistoryRepository
               const source = res.data;
               const { frontMatter } = frontMatterParser(source);
               const entry: EntryWithHistory = {
-                entry: {
-                  createdAt: date,
-                  pageTitle: frontMatter.title,
-                  pid: name,
-                  source,
-                  updatedAt: date,
-                  tags: frontMatter.tags,
-                },
                 createdAt: date,
+                pageTitle: frontMatter.title,
+                pid: name,
+                source,
+                updatedAt: date,
+                tags: frontMatter.tags,
                 revision: hash,
                 message,
               };
