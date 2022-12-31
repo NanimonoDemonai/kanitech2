@@ -1,7 +1,7 @@
-import { MDXProvider } from "@mdx-js/react";
-import { getMDXComponent } from "mdx-bundler/client";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useMemo } from "react";
+import { Suspense, useCallback, useState } from "react";
+import { MDXViewer } from "src/components/organisms/MDXViewer";
+import { SourceFetcher } from "src/components/organisms/SourceFetcher";
 import { getSessionContainer } from "src/di/container";
 import { EntryPageStore } from "src/interfaces/Stores/EntryPageStore";
 import { EntryInteractor } from "src/useCases/interactores/EntryInteractors";
@@ -22,10 +22,10 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   await interactor.handleGet(pid);
   const select = store.store;
   if (!select) return { notFound: true };
-  const { source, pageTitle } = select;
+  const { renderedSource, pageTitle } = select;
   return {
     props: {
-      code: source,
+      code: renderedSource,
       title: pageTitle,
       pid,
     },
@@ -40,13 +40,27 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const Index: NextPage<Props> = ({ code }) => {
-  const Component = useMemo(() => getMDXComponent(code), [code]);
-
+const Index: NextPage<Props> = ({ code, pid }) => {
+  const [show, setShow] = useState(false);
+  const onClick = useCallback(() => {
+    setShow(!show);
+  }, [show]);
   return (
-    <MDXProvider>
-      <Component />
-    </MDXProvider>
+    <div>
+      {show ? (
+        <Suspense fallback={<p>loading</p>}>
+          <SourceFetcher pid={pid} />
+        </Suspense>
+      ) : (
+        <div>
+          <p>出てない</p>
+        </div>
+      )}
+      <button type={"button"} onClick={onClick}>
+        出す
+      </button>
+      <MDXViewer code={code} />
+    </div>
   );
 };
 
