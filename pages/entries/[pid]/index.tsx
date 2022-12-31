@@ -20,16 +20,13 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const interactor = container.resolve(EntryInteractor);
   const store = container.resolve(EntryPageStore);
   await interactor.handleGet(pid);
-  const select = store.select((s) => ({
-    code: s.renderedSource,
-    title: s.pageTitle,
-  }));
+  const select = store.store;
   if (!select) return { notFound: true };
-  const { code, title } = select;
+  const { source, pageTitle } = select;
   return {
     props: {
-      code,
-      title,
+      code: source,
+      title: pageTitle,
       pid,
     },
     revalidate: 10,

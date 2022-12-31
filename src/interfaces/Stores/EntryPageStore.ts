@@ -20,8 +20,8 @@ export class EntryPageStore
     super();
   }
 
-  public async complete(entry: Entry) {
+  public override async complete(entry: Entry) {
     const renderedSource = await this.renderer.render(entry);
-    this.store = { ...entry, renderedSource };
+    super.complete({ ...entry, renderedSource });
   }
 }

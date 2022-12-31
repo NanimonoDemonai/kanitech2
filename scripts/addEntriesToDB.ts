@@ -1,11 +1,11 @@
 import { getSessionContainer } from "src/di/container";
-import { EntryHistoryUseCases } from "src/useCases/EntryHistoryUseCases";
+import { BatchHistoryUseCases } from "src/useCases/BatchHistoryUseCase";
 import { EntryUseCases } from "src/useCases/EntryUseCases";
 
 const addEntriesToDB = async () => {
   const container = getSessionContainer();
   const entryUseCase = container.resolve(EntryUseCases);
-  const historyUseCase = container.resolve(EntryHistoryUseCases);
+  const historyUseCase = container.resolve(BatchHistoryUseCases);
   const histories = await historyUseCase.findAll();
   await Promise.all(
     histories.map(async (entry) => {

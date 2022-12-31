@@ -14,7 +14,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const entriesInteractor = container.resolve(EntriesInteractor);
   const store = container.resolve(EntriesPageStore);
   await entriesInteractor.handleFindEntries();
-  const entries = store.select((s) => s);
+  const entries = store.store;
   if (!entries) return { notFound: true };
   return {
     props: {

@@ -10,7 +10,4 @@ export class EntriesPageStore
   extends AbstractStore<EntriesPageViewModel>
   implements EntriesPresenter
 {
-  public async complete(entry: Entry[]) {
-    this.store = entry;
-  }
 }
